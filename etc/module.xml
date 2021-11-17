@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    CleatSquad
+ * @package     CleatSquad_Smarty
+ * @copyright   Copyright (c) 2021 CleatSquad, Inc. (http://www.cleatsquad.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="CleatSquad_Smarty" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Core" />
+            <module name="Magento_Backend" />
+            <module name="Magento_Config" />
+        </sequence>
+    </module>
+</config>
