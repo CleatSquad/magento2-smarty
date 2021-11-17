@@ -2,7 +2,7 @@
 /**
  * @category    CleatSquad
  * @package     CleatSquad_Smarty
- * @copyright   Copyright (c) 2021 CleatSquad, Inc. (http://www.cleatsquad.com)
+ * @copyright   Copyright (c) 2021 CleatSquad, Inc. (https://www.cleatsquad.com)
  */
 declare(strict_types=1);
 
@@ -134,7 +134,7 @@ class Smarty implements \Magento\Framework\View\TemplateEngineInterface
     {
         try {
             $dictionary['block'] = $block;
-            $dictionary['this'] = $this;
+            $dictionary['this'] = $block;
             $dictionary = array_merge($this->blockVariables, $dictionary);
             foreach ($dictionary as $key => $object) {
                 $this->smarty->assignByRef($key, $object);

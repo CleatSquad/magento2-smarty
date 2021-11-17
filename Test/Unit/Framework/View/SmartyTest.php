@@ -2,7 +2,7 @@
 /**
  * @category    CleatSquad
  * @package     CleatSquad_Smarty
- * @copyright   Copyright (c) 2021 CleatSquad, Inc. (http://www.cleatsquad.com)
+ * @copyright   Copyright (c) 2021 CleatSquad, Inc. (https://www.cleatsquad.com)
  */
 declare(strict_types=1);
 
@@ -11,6 +11,7 @@ namespace CleatSquad\Smarty\Test\Unit\Framework\View;
 use CleatSquad\Smarty\Framework\View\TemplateEngine\Smarty as SmartyTemplateEngine;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 use Magento\Framework\App\State;
 use Magento\Framework\View\Element\Template;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -50,7 +51,7 @@ class SmartyTest extends TestCase
     private $directoryListMock;
 
     /**
-     * @var Smarty
+     * @var SmartyTemplateEngine
      */
     private $smartyEngine;
 
@@ -61,8 +62,8 @@ class SmartyTest extends TestCase
     {
         $this->smartyEngineMock = $this->getMockForAbstractClass(Smarty::class);
         $this->scopeConfigMock = $this->getMockForAbstractClass(ScopeConfigInterface::class);
-        $this->stateMock = $this->getMockForAbstractClass(State::class);
-        $this->directoryListMock = $this->getMockForAbstractClass(DirectoryList::class);
+        $this->stateMock = $this->createMock(\Magento\Framework\App\State::class);
+        $this->directoryListMock = $this->createMock(DirectoryList::class);
 
         $this->smartyEngine = (new ObjectManager($this))->getObject(
             SmartyTemplateEngine::class,
@@ -94,10 +95,10 @@ class SmartyTest extends TestCase
         $blockMock->property = self::TEST_PROP_VALUE;
 
         $filename = __DIR__ . '/_files/simple.tpl';
-        $actualOutput = $this->smartyEngine->render($blockMock, $filename);
-        dd($actualOutput);
 
-        $expectedOutput = '<html>' . self::TEST_PROP_VALUE . '</html>' . PHP_EOL;
+        $actualOutput = $this->smartyEngine->render($blockMock, $filename);
+
+        $expectedOutput = '<html>'. self::TEST_PROP_VALUE . '</html>' . PHP_EOL;
         $this->assertSame($expectedOutput, $actualOutput, 'tpl file did not render correctly');
     }
 
@@ -108,7 +109,9 @@ class SmartyTest extends TestCase
      */
     public function testRenderException()
     {
-        $this->expectException('PHPUnit\Framework\Exception');
+        $message = 'We can\'t load the template This_is_not_a_file.';
+        $exception = new \Exception($message);
+
         $blockMock = $this->getMockBuilder(
             Template::class
         )->setMethods(
@@ -117,7 +120,8 @@ class SmartyTest extends TestCase
             ->getMock();
 
         $filename = 'This_is_not_a_file';
-
+        $this->expectException('Exception');
+        $this->expectExceptionMessage($message);
         $this->smartyEngine->render($blockMock, $filename);
     }
 }
