@@ -4,7 +4,6 @@
 [![Packagist Version](https://img.shields.io/packagist/v/cleatsquad/magento2-smarty?color=blue)](https://packagist.org/packages/cleatsquad/magento2-smarty)
 [![Packagist License](https://img.shields.io/packagist/l/cleatsquad/magento2-smarty)](https://github.com/cleatsquad/magento2-smarty/blob/main/LICENSE)
 
-``
 ## Magento Version Support
 
 ![Magento 2.4.6 and above](https://img.shields.io/badge/Magento-2.4%20and%20above-brightgreen.svg?style=flat)
